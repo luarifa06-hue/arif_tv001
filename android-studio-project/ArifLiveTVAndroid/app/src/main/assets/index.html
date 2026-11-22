@@ -13,6 +13,7 @@
 <div id="list">No saved channels. Open an M3U or add a stream URL.</div><input id="file" type="file" accept=".m3u,.m3u8,.txt" hidden>
 </aside>
 <section><div class="player" id="screen"><video id="video" controls playsinline></video><div class="placeholder">▮▮▮<p>Select a channel to play</p></div></div><p id="now">Nothing playing</p><div class="controls"><button id="play">Play</button><button id="stop">Stop</button><button id="full">Fullscreen</button></div></section></main>
+<div id="urlModal" class="modal-backdrop" role="dialog" aria-modal="true"><div class="modal-card"><h2>Add Channel URL</h2><label for="channelName">Channel name</label><input id="channelName" type="text" placeholder="Channel name" autocomplete="off"><label for="channelUrl">Stream URL</label><input id="channelUrl" type="url" placeholder="https://example.com/live.m3u8" autocomplete="off"><div id="urlError" class="modal-error"></div><div class="modal-actions"><button id="urlCancel" class="cancel">Cancel</button><button id="urlSave">Save Channel</button></div></div></div>
 <script>
 (()=>{const $=id=>document.getElementById(id),v=$('video'),screen=$('screen');let channels=[],hls=null,selected=null,activeId=null;
 const STORAGE='arifLiveTvSavedSourcesV1';
@@ -34,4 +35,4 @@ const modal=$('urlModal'),nameField=$('channelName'),urlField=$('channelUrl'),ur
 $('delPlaylist').onclick=()=>{if(!activeId)return;let saved=readSaved(),src=saved.find(s=>s.id===activeId);if(!src||!confirm('Delete saved playlist "'+src.name+'" permanently?'))return;saved=saved.filter(s=>s.id!==activeId);saveSaved(saved);activeId=saved[0]?.id||null;renderSaved()};
 $('playlistSelect').onchange=e=>loadSource(e.target.value);$('search').oninput=draw;$('play').onclick=()=>selected&&v.play();$('stop').onclick=()=>{v.pause();v.currentTime=0};$('full').onclick=()=>{if(screen.requestFullscreen)screen.requestFullscreen();else if(v.webkitEnterFullscreen)v.webkitEnterFullscreen()};renderSaved();
 })();
-</script><div id="urlModal" class="modal-backdrop" role="dialog" aria-modal="true"><div class="modal-card"><h2>Add Channel URL</h2><label for="channelName">Channel name</label><input id="channelName" type="text" placeholder="Channel name" autocomplete="off"><label for="channelUrl">Stream URL</label><input id="channelUrl" type="url" placeholder="https://example.com/live.m3u8" autocomplete="off"><div id="urlError" class="modal-error"></div><div class="modal-actions"><button id="urlCancel" class="cancel">Cancel</button><button id="urlSave">Save Channel</button></div></div></div></body></html>
+</script></body></html>
